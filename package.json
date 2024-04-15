@@ -128,7 +128,7 @@
 	"dependencies": {
 		"resolve": "1.22.8",
 		"semver": "7.6.0",
-		"undici": "5.28.3"
+		"undici": "5.28.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.6.4",
