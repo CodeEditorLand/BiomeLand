@@ -130,17 +130,17 @@
 	],
 	"dependencies": {
 		"resolve": "1.22.8",
-		"semver": "7.6.0",
-		"undici": "6.15.0"
+		"semver": "7.6.1",
+		"undici": "6.16.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.7.3",
-		"@playform/build": "0.0.7",
+		"@playform/build": "0.0.8",
 		"@playform/document": "0.0.6",
-		"@types/node": "20.12.10",
+		"@types/node": "20.12.11",
 		"@types/resolve": "1.20.6",
 		"@types/semver": "7.5.8",
-		"esbuild": "0.20.2",
+		"esbuild": "0.21.1",
 		"git-cliff": "2.2.1",
 		"lefthook": "1.6.10",
 		"ovsx": "0.9.1"
