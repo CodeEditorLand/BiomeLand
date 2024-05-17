@@ -1,27 +1,7 @@
 {
 	"name": "biome",
 	"displayName": "Biome",
-	"version": "0.0.1",
-	"private": false,
 	"description": "Biome LSP VS Code Extension",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/BiomeLand#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/BiomeLand/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/BiomeLand.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
 	"main": "./out/main.js",
 	"scripts": {
 		"Document": "Document 'Source/**/*.ts'",
@@ -136,7 +116,6 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.7.3",
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/node": "20.12.11",
 		"@types/resolve": "1.20.6",
 		"@types/semver": "7.5.8",
@@ -144,9 +123,6 @@
 		"git-cliff": "2.2.1",
 		"lefthook": "1.6.10",
 		"ovsx": "0.9.1"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"icon": "resources/icons/icon.png",
 	"capabilities": {
