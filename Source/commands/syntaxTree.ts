@@ -114,7 +114,9 @@ class SyntaxTreeProvider
 		return this.eventEmitter.event;
 	}
 
-	provideDocumentLinks(document: TextDocument): ProviderResult<DocumentLink[]> {
+	provideDocumentLinks(
+		document: TextDocument,
+	): ProviderResult<DocumentLink[]> {
 		const doc = this.documents.get(document.uri.toString());
 		if (doc) {
 			return [];

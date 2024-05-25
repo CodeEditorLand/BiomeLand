@@ -55,16 +55,8 @@
 				"biome_lsp.trace.server": {
 					"default": "off",
 					"description": "Traces the communication between VS Code and the language server.",
-					"enum": [
-						"off",
-						"messages",
-						"verbose"
-					],
-					"enumDescriptions": [
-						"No traces",
-						"Error only",
-						"Full log"
-					],
+					"enum": ["off", "messages", "verbose"],
+					"enumDescriptions": ["No traces", "Error only", "Full log"],
 					"scope": "window",
 					"type": "string"
 				}
@@ -80,9 +72,7 @@
 		],
 		"languages": [
 			{
-				"extensions": [
-					".rast"
-				],
+				"extensions": [".rast"],
 				"id": "biome_syntax_tree"
 			}
 		],
@@ -116,7 +106,7 @@
 		"@types/node": "20.12.12",
 		"@types/resolve": "1.20.6",
 		"@types/semver": "7.5.8",
-		"esbuild": "0.21.3",
+		"esbuild": "0.21.4",
 		"git-cliff": "2.2.2",
 		"lefthook": "1.6.12",
 		"ovsx": "0.9.1"
@@ -125,9 +115,7 @@
 	"capabilities": {
 		"untrustedWorkspaces": {
 			"description": "The use of external binaries is disallowed in untrusted workspaces.",
-			"restrictedConfigurations": [
-				"biome.lspBin"
-			],
+			"restrictedConfigurations": ["biome.lspBin"],
 			"supported": "limited"
 		}
 	},
