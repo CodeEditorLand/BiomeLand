@@ -95,9 +95,7 @@ const download = async (version: string, context: ExtensionContext) => {
 	const asset = releases.assets.find(
 		(asset) =>
 			asset.name ===
-			`biome-${platformArch}${
-				process.platform === "win32" ? ".exe" : ""
-			}`,
+			`biome-${platformArch}${process.platform === "win32" ? ".exe" : ""}`,
 	);
 
 	if (!asset) {

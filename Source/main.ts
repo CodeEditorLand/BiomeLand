@@ -25,7 +25,7 @@ import { syntaxTree } from "./commands/syntaxTree";
 import { selectAndDownload, updateToLatest } from "./downloader";
 import { Session } from "./session";
 import { StatusBar } from "./statusBar";
-import { setContextValue } from "./utils";
+import { isMusl, setContextValue } from "./utils";
 
 let client: LanguageClient;
 
@@ -148,13 +148,9 @@ export async function activate(context: ExtensionContext) {
 						`Copying binary to temporary folder: ${destination}`,
 					);
 					// @ts-expect-error
-					await workspace.fs.copy(
-						Uri.file(server.command),
-						destination,
-						{
-							overwrite: true,
-						},
-					);
+					await workspace.fs.copy(Uri.file(server.command), destination, {
+						overwrite: true,
+					});
 				} catch (error) {
 					outputChannel.appendLine(`Error copying file: ${error}`);
 					destination = undefined;
@@ -213,9 +209,7 @@ export async function activate(context: ExtensionContext) {
 						await client.start();
 					}
 				} catch (error) {
-					outputChannel.appendLine(
-						`Reloading client failed: ${error}`,
-					);
+					outputChannel.appendLine(`Reloading client failed: ${error}`);
 				}
 			}),
 		);
@@ -262,9 +256,7 @@ export async function activate(context: ExtensionContext) {
 		}
 
 		const { document } = textEditor;
-		statusBar.setActive(
-			languages.match(codeDocumentSelector, document) > 0,
-		);
+		statusBar.setActive(languages.match(codeDocumentSelector, document) > 0);
 	};
 
 	context.subscriptions.push(
@@ -274,50 +266,6 @@ export async function activate(context: ExtensionContext) {
 	handleActiveTextEditorChanged(window.activeTextEditor);
 	await client.start();
 }
-
-type Architecture = "x64" | "arm64";
-
-type PlatformTriplets = {
-	[P in NodeJS.Platform]?: {
-		[A in Architecture]: {
-			triplet: string;
-			package: string;
-		};
-	};
-};
-
-const PLATFORMS: PlatformTriplets = {
-	win32: {
-		x64: {
-			triplet: "x86_64-pc-windows-msvc",
-			package: "@biomejs/cli-win32-x64",
-		},
-		arm64: {
-			triplet: "aarch64-pc-windows-msvc",
-			package: "@biomejs/cli-win32-arm64",
-		},
-	},
-	darwin: {
-		x64: {
-			triplet: "x86_64-apple-darwin",
-			package: "@biomejs/cli-darwin-x64",
-		},
-		arm64: {
-			triplet: "aarch64-apple-darwin",
-			package: "@biomejs/cli-darwin-arm64",
-		},
-	},
-	linux: {
-		x64: {
-			triplet: "x86_64-unknown-linux-gnu",
-			package: "@biomejs/cli-linux-x64",
-		},
-		arm64: {
-			triplet: "aarch64-unknown-linux-gnu",
-			package: "@biomejs/cli-linux-arm64",
-		},
-	},
-};
 
 async function getServerPath(
 	context: ExtensionContext,
@@ -358,8 +306,7 @@ async function getServerPath(
 	const config = workspace.getConfiguration();
 	const explicitPath = config.get<string>("biome.lspBin");
 	if (explicitPath) {
-		const workspaceRelativePath =
-			await getWorkspaceRelativePath(explicitPath);
+		const workspaceRelativePath = await getWorkspaceRelativePath(explicitPath);
 		if (workspaceRelativePath !== undefined) {
 			return {
 				bundled: false,
@@ -385,9 +332,7 @@ async function getServerPath(
 		outputChannel.appendLine("Searching for Biome in PATH");
 		const biomeInPATH = await findBiomeInPath();
 		if (biomeInPATH) {
-			outputChannel.appendLine(
-				`Biome found in PATH: ${biomeInPATH.fsPath}`,
-			);
+			outputChannel.appendLine(`Biome found in PATH: ${biomeInPATH.fsPath}`);
 			return {
 				bundled: false,
 				workspaceDependency: false,
@@ -450,6 +395,8 @@ async function getWorkspaceRelativePath(path: string) {
 async function getWorkspaceDependency(
 	outputChannel: OutputChannel,
 ): Promise<string | undefined> {
+	const wantsMuslBuild = isMusl();
+
 	for (const workspaceFolder of workspace.workspaceFolders ?? []) {
 		// Check for Yarn PnP and try resolving the Biome binary without a node_modules
 		// folder first.
@@ -474,9 +421,9 @@ async function getWorkspaceDependency(
 					throw new Error("No @biomejs/biome dependency configured");
 				}
 				return pnpApi.resolveRequest(
-					`@biomejs/cli-${process.platform}-${process.arch}/biome${
-						process.platform === "win32" ? ".exe" : ""
-					}`,
+					`@biomejs/cli-${process.platform}-${process.arch}${
+						wantsMuslBuild ? "-musl" : ""
+					}/biome${process.platform === "win32" ? ".exe" : ""}`,
 					pkgPath,
 				);
 			} catch (err) {
@@ -498,14 +445,14 @@ async function getWorkspaceDependency(
 			);
 			const binaryPackage = dirname(
 				requireFromBiome.resolve(
-					`@biomejs/cli-${process.platform}-${process.arch}/package.json`,
+					`@biomejs/cli-${process.platform}-${process.arch}${
+						wantsMuslBuild ? "-musl" : ""
+					}/package.json`,
 				),
 			);
 
 			const biomePath = Uri.file(
-				`${binaryPackage}/biome${
-					process.platform === "win32" ? ".exe" : ""
-				}`,
+				`${binaryPackage}/biome${process.platform === "win32" ? ".exe" : ""}`,
 			);
 
 			if (await fileExists(biomePath)) {
@@ -616,18 +563,8 @@ async function getSocket(
 	const stdout = { content: "" };
 	const stderr = { content: "" };
 
-	const stdoutPromise = collectStream(
-		outputChannel,
-		process,
-		"stdout",
-		stdout,
-	);
-	const stderrPromise = collectStream(
-		outputChannel,
-		process,
-		"stderr",
-		stderr,
-	);
+	const stdoutPromise = collectStream(outputChannel, process, "stdout", stdout);
+	const stderrPromise = collectStream(outputChannel, process, "stderr", stderr);
 
 	const exitCode = await new Promise<number>((resolve, reject) => {
 		process.on("error", reject);

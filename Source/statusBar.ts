@@ -65,8 +65,7 @@ export class StatusBar {
 		this.serverState = state;
 
 		if (state === State.Running) {
-			this.serverVersion =
-				client.initializeResult?.serverInfo?.version ?? "";
+			this.serverVersion = client.initializeResult?.serverInfo?.version ?? "";
 		} else {
 			this.serverVersion = "";
 		}
@@ -177,9 +176,7 @@ export class StatusBar {
 			return;
 		}
 
-		const latestVersion = (
-			await getVersions(this.context, outputChannel)
-		)?.[0];
+		const latestVersion = (await getVersions(this.context, outputChannel))?.[0];
 
 		// If the latest version cannot be fetch, do not display the update
 		// status bar item.
