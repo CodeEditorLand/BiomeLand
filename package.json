@@ -117,7 +117,7 @@
 		"@types/node": "^20.14.2",
 		"@types/resolve": "^1.20.6",
 		"@types/semver": "^7.5.8",
-		"esbuild": "^0.21.4",
+		"esbuild": "^0.21.5",
 		"git-cliff": "^2.3.0",
 		"lefthook": "^1.6.15",
 		"ovsx": "^0.9.1"
