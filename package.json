@@ -1,15 +1,24 @@
 {
-	"name": "biome",
-	"displayName": "Biome",
-	"description": "Biome LSP VS Code Extension",
-	"main": "./out/main.js",
-	"scripts": {
-		"build": "bun run compile --minify && bun run package",
-		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md",
-		"compile": "esbuild src/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=node14",
-		"install-extension": "code --install-extension biome_lsp.vsix --force",
-		"pack:dev": "bun run compile && bun run package && bun run install-extension",
-		"prepare": "lefthook install"
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
+		"onLanguage:typescript",
+		"onLanguage:typescriptreact",
+		"onLanguage:json",
+		"onLanguage:jsonc",
+		"onLanguage:vue",
+		"onLanguage:astro",
+		"onLanguage:svelte",
+		"onLanguage:css"
+	],
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"description": "The use of external binaries is disallowed in untrusted workspaces.",
+			"restrictedConfigurations": [
+				"biome.lspBin"
+			],
+			"supported": "limited"
+		}
 	},
 	"contributes": {
 		"commands": [
@@ -95,23 +104,12 @@
 			]
 		}
 	},
-	"activationEvents": [
-		"onLanguage:javascript",
-		"onLanguage:javascriptreact",
-		"onLanguage:typescript",
-		"onLanguage:typescriptreact",
-		"onLanguage:json",
-		"onLanguage:jsonc",
-		"onLanguage:vue",
-		"onLanguage:astro",
-		"onLanguage:svelte",
-		"onLanguage:css"
-	],
 	"dependencies": {
 		"resolve": "^1.22.8",
 		"semver": "^7.6.2",
 		"undici": "^6.19.2"
 	},
+	"description": "Biome LSP VS Code Extension",
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",
 		"@types/node": "^20.14.9",
@@ -122,17 +120,19 @@
 		"lefthook": "^1.6.18",
 		"ovsx": "^0.9.1"
 	},
+	"displayName": "Biome",
 	"icon": "resources/icons/icon.png",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"description": "The use of external binaries is disallowed in untrusted workspaces.",
-			"restrictedConfigurations": [
-				"biome.lspBin"
-			],
-			"supported": "limited"
-		}
-	},
+	"main": "./out/main.js",
+	"name": "biome",
 	"readme": "https://github.com/biomejs/biome-vscode#readme",
+	"scripts": {
+		"build": "bun run compile --minify && bun run package",
+		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md",
+		"compile": "esbuild src/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=node14",
+		"install-extension": "code --install-extension biome_lsp.vsix --force",
+		"pack:dev": "bun run compile && bun run package && bun run install-extension",
+		"prepare": "lefthook install"
+	},
 	"vsce": {
 		"dependencies": false,
 		"skipLicense": true
