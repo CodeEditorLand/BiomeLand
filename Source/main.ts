@@ -1,7 +1,7 @@
-import { type ChildProcess, spawn } from "node:child_process";
-import { createRequire } from "node:module";
-import { type Socket, connect } from "node:net";
-import { delimiter, dirname, isAbsolute } from "node:path";
+import { type ChildProcess, spawn } from "child_process";
+import { createRequire } from "module";
+import { type Socket, connect } from "net";
+import { delimiter, dirname, isAbsolute } from "path";
 import {
 	type ExtensionContext,
 	FileSystemError,
