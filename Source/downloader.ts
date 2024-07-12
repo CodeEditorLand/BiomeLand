@@ -1,4 +1,4 @@
-import { chmodSync } from "fs";
+import { chmodSync } from "node:fs";
 import { fetch } from "undici";
 import {
 	type ExtensionContext,
