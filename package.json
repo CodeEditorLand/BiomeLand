@@ -121,15 +121,11 @@
 		"lefthook": "1.7.2",
 		"ovsx": "0.9.1"
 	},
-	"icon": "resources/icons/icon.png",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"description": "The use of external binaries is disallowed in untrusted workspaces.",
-			"restrictedConfigurations": [
-				"biome.lspBin"
-			],
-			"supported": "limited"
-		}
+	"dependencies": {
+		"resolve": "1.22.8",
+		"semver": "7.6.2",
+		"undici": "6.19.2",
+		"vscode-languageclient": "8.1.0"
 	},
 	"readme": "https://github.com/biomejs/biome-vscode#readme",
 	"vsce": {
