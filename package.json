@@ -118,7 +118,7 @@
 		"@types/semver": "7.5.8",
 		"esbuild": "0.23.0",
 		"git-cliff": "2.4.0",
-		"lefthook": "1.7.2",
+		"lefthook": "1.7.3",
 		"ovsx": "0.9.1"
 	},
 	"icon": "resources/icons/icon.png",
