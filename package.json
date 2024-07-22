@@ -107,18 +107,14 @@
 		"onLanguage:css",
 		"onLanguage:graphql"
 	],
-	"dependencies": {
-		"resolve": "1.22.8",
-		"semver": "7.6.2",
-		"undici": "6.19.2"
-	},
 	"devDependencies": {
-		"@types/node": "20.14.10",
+		"@biomejs/biome": "1.8.4-nightly.a579bf7",
+		"@types/node": "20.14.11",
 		"@types/resolve": "1.20.6",
 		"@types/semver": "7.5.8",
 		"esbuild": "0.23.0",
-		"git-cliff": "1.4.0",
-		"lefthook": "1.7.2",
+		"git-cliff": "2.4.0",
+		"lefthook": "1.7.3",
 		"ovsx": "0.9.1"
 	},
 	"icon": "resources/icons/icon.png",
