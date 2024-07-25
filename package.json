@@ -1,4 +1,102 @@
 {
+<<<<<<< HEAD
+=======
+	"name": "biome",
+	"displayName": "Biome",
+	"description": "Biome LSP VS Code Extension",
+	"main": "./out/main.js",
+	"scripts": {
+		"build": "bun run compile --minify && bun run package",
+		"changelog": "git-cliff --unreleased --prepend CHANGELOG.md",
+		"compile": "esbuild src/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=node14",
+		"install-extension": "code --install-extension biome_lsp.vsix --force",
+		"pack:dev": "bun run compile && bun run package && bun run install-extension"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"category": "Biome",
+				"command": "biome.syntaxTree",
+				"title": "Show Syntax Tree"
+			},
+			{
+				"category": "Biome",
+				"command": "biome.restartLspServer",
+				"title": "Restart LSP Server"
+			},
+			{
+				"category": "Biome",
+				"command": "biome.clearVersionsCache",
+				"title": "Clear versions cache"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"biome.enabled": {
+					"default": true,
+					"description": "Whether the Biome extension is enabled.",
+					"type": "boolean"
+				},
+				"biome.lspBin": {
+					"default": "",
+					"ignoreSync": true,
+					"markdownDescription": "The biome lsp server executable. If the path is relative, the workspace folder will be used as base path",
+					"type": "string"
+				},
+				"biome.rename": {
+					"default": false,
+					"markdownDescription": "Enable/Disable Biome handling renames in the workspace. (Experimental)",
+					"type": "boolean"
+				},
+				"biome.searchInPath": {
+					"default": true,
+					"markdownDescription": "Whether to search for the biome executable in the folders declared in the PATH environment variable",
+					"type": "boolean"
+				},
+				"biome_lsp.trace.server": {
+					"default": "off",
+					"description": "Traces the communication between VS Code and the language server.",
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"enumDescriptions": [
+						"No traces",
+						"Error only",
+						"Full log"
+					],
+					"scope": "window",
+					"type": "string"
+				}
+			},
+			"title": "Biome"
+		},
+		"grammars": [
+			{
+				"language": "biome_syntax_tree",
+				"path": "resources/grammaers/biome_syntax_tree.tmGrammar.json",
+				"scopeName": "source.biome_syntax_tree"
+			}
+		],
+		"languages": [
+			{
+				"extensions": [
+					".rast"
+				],
+				"id": "biome_syntax_tree"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "biome.syntaxTree",
+					"when": "inBiomeProject"
+				}
+			]
+		}
+	},
+>>>>>>> 643b6e9ed917fa49794e28db9ff45b765d572aef
 	"activationEvents": [
 		"onLanguage:javascript",
 		"onLanguage:javascriptreact",
@@ -12,6 +110,19 @@
 		"onLanguage:css",
 		"onLanguage:graphql"
 	],
+<<<<<<< HEAD
+=======
+	"devDependencies": {
+		"@types/node": "20.14.12",
+		"@types/resolve": "1.20.6",
+		"@types/semver": "7.5.8",
+		"esbuild": "0.23.0",
+		"git-cliff": "2.4.0",
+		"lefthook": "1.7.6",
+		"ovsx": "0.9.2"
+	},
+	"icon": "resources/icons/icon.png",
+>>>>>>> 643b6e9ed917fa49794e28db9ff45b765d572aef
 	"capabilities": {
 		"untrustedWorkspaces": {
 			"description": "The use of external binaries is disallowed in untrusted workspaces.",
@@ -20,6 +131,7 @@
 			],
 			"supported": "limited"
 		}
+<<<<<<< HEAD
 	},
 	"contributes": {
 		"commands": [
@@ -131,7 +243,10 @@
 		"compile": "esbuild src/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=node14",
 		"install-extension": "code --install-extension biome_lsp.vsix --force",
 		"pack:dev": "bun run compile && bun run package && bun run install-extension"
+=======
+>>>>>>> 643b6e9ed917fa49794e28db9ff45b765d572aef
 	},
+	"readme": "https://github.com/biomejs/biome-vscode#readme",
 	"vsce": {
 		"dependencies": false,
 		"skipLicense": true
