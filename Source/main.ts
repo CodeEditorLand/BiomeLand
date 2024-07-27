@@ -148,9 +148,13 @@ export async function activate(context: ExtensionContext) {
 						`Copying binary to temporary folder: ${destination}`,
 					);
 					// @ts-expect-error
-					await workspace.fs.copy(Uri.file(server.command), destination, {
-						overwrite: true,
-					});
+					await workspace.fs.copy(
+						Uri.file(server.command),
+						destination,
+						{
+							overwrite: true,
+						},
+					);
 				} catch (error) {
 					outputChannel.appendLine(`Error copying file: ${error}`);
 					destination = undefined;
@@ -208,7 +212,9 @@ export async function activate(context: ExtensionContext) {
 						await client.start();
 					}
 				} catch (error) {
-					outputChannel.appendLine(`Reloading client failed: ${error}`);
+					outputChannel.appendLine(
+						`Reloading client failed: ${error}`,
+					);
 				}
 			}),
 		);
@@ -255,7 +261,9 @@ export async function activate(context: ExtensionContext) {
 		}
 
 		const { document } = textEditor;
-		statusBar.setActive(languages.match(codeDocumentSelector, document) > 0);
+		statusBar.setActive(
+			languages.match(codeDocumentSelector, document) > 0,
+		);
 	};
 
 	context.subscriptions.push(
@@ -305,7 +313,8 @@ async function getServerPath(
 	const config = workspace.getConfiguration();
 	const explicitPath = config.get<string>("biome.lspBin");
 	if (explicitPath) {
-		const workspaceRelativePath = await getWorkspaceRelativePath(explicitPath);
+		const workspaceRelativePath =
+			await getWorkspaceRelativePath(explicitPath);
 		if (workspaceRelativePath !== undefined) {
 			return {
 				bundled: false,
@@ -331,7 +340,9 @@ async function getServerPath(
 		outputChannel.appendLine("Searching for Biome in PATH");
 		const biomeInPATH = await findBiomeInPath();
 		if (biomeInPATH) {
-			outputChannel.appendLine(`Biome found in PATH: ${biomeInPATH.fsPath}`);
+			outputChannel.appendLine(
+				`Biome found in PATH: ${biomeInPATH.fsPath}`,
+			);
 			return {
 				bundled: false,
 				workspaceDependency: false,
@@ -564,8 +575,18 @@ async function getSocket(
 	const stdout = { content: "" };
 	const stderr = { content: "" };
 
-	const stdoutPromise = collectStream(outputChannel, process, "stdout", stdout);
-	const stderrPromise = collectStream(outputChannel, process, "stderr", stderr);
+	const stdoutPromise = collectStream(
+		outputChannel,
+		process,
+		"stdout",
+		stdout,
+	);
+	const stderrPromise = collectStream(
+		outputChannel,
+		process,
+		"stderr",
+		stderr,
+	);
 
 	const exitCode = await new Promise((resolve, reject) => {
 		process.on("error", reject);
