@@ -20,7 +20,7 @@ export const getVersions = async (
 		return cachedVersions.versions;
 	}
 
-	let releases = undefined;
+	let releases;
 
 	const response = await fetch(
 		"https://api.github.com/repos/biomejs/biome/releases?per_page=100",

@@ -1,26 +1,5 @@
 {
-	"activationEvents": [
-		"onLanguage:javascript",
-		"onLanguage:javascriptreact",
-		"onLanguage:typescript",
-		"onLanguage:typescriptreact",
-		"onLanguage:json",
-		"onLanguage:jsonc",
-		"onLanguage:vue",
-		"onLanguage:astro",
-		"onLanguage:svelte",
-		"onLanguage:css",
-		"onLanguage:graphql"
-	],
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"description": "The use of external binaries is disallowed in untrusted workspaces.",
-			"restrictedConfigurations": [
-				"biome.lspBin"
-			],
-			"supported": "limited"
-		}
-	},
+	"description": "Biome LSP VS Code Extension",
 	"contributes": {
 		"commands": [
 			{
@@ -105,12 +84,24 @@
 			]
 		}
 	},
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
+		"onLanguage:typescript",
+		"onLanguage:typescriptreact",
+		"onLanguage:json",
+		"onLanguage:jsonc",
+		"onLanguage:vue",
+		"onLanguage:astro",
+		"onLanguage:svelte",
+		"onLanguage:css",
+		"onLanguage:graphql"
+	],
 	"dependencies": {
 		"resolve": "1.22.8",
 		"semver": "7.6.3",
 		"undici": "6.19.7"
 	},
-	"description": "Biome LSP VS Code Extension",
 	"devDependencies": {
 		"@types/node": "20.16.1",
 		"@types/resolve": "1.20.6",
@@ -119,6 +110,15 @@
 		"git-cliff": "1.4.0",
 		"lefthook": "1.7.14",
 		"ovsx": "0.9.2"
+	},
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"description": "The use of external binaries is disallowed in untrusted workspaces.",
+			"restrictedConfigurations": [
+				"biome.lspBin"
+			],
+			"supported": "limited"
+		}
 	},
 	"vsce": {
 		"dependencies": false,
