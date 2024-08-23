@@ -1,80 +1,108 @@
-# Contributing
+# Contribution guidelines
 
-Thank you for your interest in contributing to this project!
+Thank you for considering contributing to the Biome extension for Visual Studio 
+Code! This document outlines somes of the conventions on development workflow,
+testing protocol, and other resources to make it easier to get your contribution
+accepted.
 
-Please review the following guidelines before making your contribution.
+As is usually customary when contributing to an open-source project, please
+create an [issue], a [discussion] or reach out on [Discord] if you plan to make 
+substantial changes. This gives the maintainers a chance to provide early 
+feedback and ensures that your contribution is in line with the project's goals.
 
-> [!IMPORTANT] If you plan on making a significant contribution, we recommend
-> that you first create a discussion describing your proposed contribution to
-> the project. This allows the project maintainers to provide early feedback
-> that can help guide your contribution.
+[issue]: https://github.com/biomejs/biome-vscode/issues
+[discussion]: https://github.com/biomejs/biome-vscode/discussions
+[Discord]: https://discord.gg/BypW39g6Yc
 
 ## Project setup
 
-1. Fork the repository and clone it to your local machine.
-    ```shell
-    gh repo fork biomejs/biome-vscode --clone
-    ```
-2. Install the dependencies.
-    ```shell
-    bun install
-    ```
+1. **Fork the repository** and clone it to your local machine. For simplicity, you
+can use the [GitHub CLI] to do this in one command.
+   ```shell
+   gh repo fork @biomejs/biome-vscode --clone
+   ```
 
-## Development
+2. **Install the dependencies**. We use [PNPM] to manage the dependencies of the 
+project. You should install it using corepack to ensure that you have the same
+version as the one used in the project.
+   ```shell
+   # Enable corepack
+   corepack enable
 
-The extension can be started in debug mode by pressing <kbd>F5</kbd> in Visual
-Studio Code. This will start a watcher that automatically rebuilds the extension
-when you make changes and opens a new VS Code window with only the Biome
-extension loaded.
+   # Install dependencies
+   pnpm install
+   ```
 
-## Making changes
+## Testing
 
-1. **Create a branch.** Before making any changes, create a branch to work on.
-    ```shell
-    git checkout -b my-branch-name
-    ```
-2. **Make your changes.** Make your changes to the codebase and commit them. The
-   format of your commit messages is not important at this stage because they
-   will be squashed later, but please ensure that your commit messages are
-   descriptive.
+This repository ships with launch configurations for debugging the extension, 
+as well as example projects that can be used to test the extension.
 
-3. **Create a pull request.** Once you are done making your changes, push your
-   branch to your fork and create a pull request. Please ensure that the title
-   of your pull request follows the conventional commits specification.
+### Debugging
 
-## Maintainers
+To start debugging the extension, use the `Debug: Select and Start Debugging` 
+command in the [command palette], or press <kbd>F5</kbd>. This will launch the 
+extension in debug mode, and allow you to set breakpoints and step through the 
+code.
 
-This section is for maintainers only. It describes the process for releasing a
-new version of the extension.
+[command palette]: https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette
 
-### Releasing a stable version
+### Example projects
 
-1. Create a new branch for the release.
-    ```shell
-    git fetch
-    git checkout -b release/vX.Y.Z main
-    ```
-2. Generate the changelog.
-    ```shell
-    bun run changelog --bump
-    ```
-3. Bump the version in `package.json` and to match the latest version in the
-   changelog.
-4. Commit and push your changes.
-5. Create a pull request named `chore(release): prepare vX.Y.Z`.
-6. Merge the pull request.
-7. Run the
-   [`Publish`](https://github.com/biomejs/biome-vscode/actions/workflows/publish.yaml)
-   workflow manually from the Actions tab in GitHub (uncheck _nightly_).
+You'll find example projects in the `test/fixtures` directory. These projects 
+are used to test the extension and can be used to reproduce issues or to test 
+new features.
 
-### Releasing a nightly version
+## Proposing a change
 
-1. Commit your changes to the _main_ branch.
-2. Generate the changelog.
-    ```shell
-    bun run changelog
-    ```
-3. Commit and push your changes.
-4. Run the
-   [`Publish`](https://github.com/biomejs/biome-vscode/actions/workflows/publish.yaml)
-   workflow manually from the Actions tab in GitHub (check _nightly_).
+When you've made sure that your changes are working as expected, you can open a 
+pull request against the `main` branch.
+
+- Create a new branch from the `main` branch.
+  ```shell
+  git checkout -b <branch-name>
+  ```
+- Make your changes in the new branch.
+- Create a pull request against the `main` branch.
+- Fill the pull request template
+
+> [!WARNING] 
+> Make sure the title of your pull request follows the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format. 
+> The messages of individual commits don't matter, because they will be squashed into a single commit message when the pull request is merged.
+
+## Release process
+
+> [!NOTE]
+> This section is only relevant for maintainers of the extension.
+
+The release process is mostly automated. The only manual step is to trigger
+the release workflows.
+
+We usually release a nightly version of the extension before promoting the 
+changes to a stable version, unless there are critical security or performance
+issues that need to be addressed.
+
+### 🌙 Releasing a nightly version
+
+To release a nightly version of the extension, trigger the [**🌙 Release new nightly version**](https://github.com/biomejs/biome-vscode/actions/workflows/release-nightly.yaml) workflow manually.
+
+This workflow:
+- Patches the `package.json` version with a date-based nightly identifier (e.g. `2024.08.221005`).
+- Builds and packages the extension.
+- Publishes the extension to the Visual Studio Marketplace and Open VSX Registry.
+
+[GitHub CLI]: https://cli.github.com/
+[PNPM]: https://pnpm.io/
+
+### 🚀 Releasing a stable version
+
+To release a stable version of the extension, trigger the [**🚀 Release new stable version**](https://github.com/biomejs/biome-vscode/actions/workflows/release-stable.yaml) workflow manually.
+
+This workflow:
+- Computes the next version number based on the commit history.
+- Generates a changelog based on the commit history.
+- Tags the repository with the new version number.
+- Patches the `package.json` version with the new version number.
+- Builds and packages the extension.
+- Publishes the extension to the Visual Studio Marketplace and Open VSX Registry.
+- Publishes the extension to GitHub Releases (with release notes).
