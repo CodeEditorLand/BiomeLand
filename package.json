@@ -188,7 +188,7 @@
 	},
 	"description": "Toolchain of the web",
 	"devDependencies": {
-		"lefthook": "1.7.14",
+		"lefthook": "1.7.15",
 		"ovsx": "0.9.2",
 		"rollup-plugin-esbuild": "6.1.1"
 	},
