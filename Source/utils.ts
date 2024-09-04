@@ -1,4 +1,5 @@
-import { type ConfigurationScope, FileType, Uri, workspace } from "vscode";
+import { constants, accessSync } from "node:fs";
+import { FileType, RelativePattern, Uri, workspace } from "vscode";
 import type { Project } from "./project";
 
 /**
@@ -168,3 +169,31 @@ export const hasVSCodeUserDataDocuments = (): boolean =>
 	) !== undefined;
 
 export const platformPackageName = `biome-${platform}`;
+
+export const debounce = <TArgs extends unknown[]>(
+	fn: (...args: TArgs) => void,
+	delay = 300,
+) => {
+	let timeout: NodeJS.Timeout | undefined;
+	return (...args: TArgs) => {
+		clearTimeout(timeout);
+		timeout = setTimeout(() => fn(...args), delay);
+	};
+};
+
+export const fileIsExecutable = (uri: Uri): boolean => {
+	try {
+		accessSync(uri.fsPath, constants.X_OK);
+		return true;
+	} catch {
+		return false;
+	}
+};
+
+export const hasNodeDependencies = async (path: Uri) => {
+	const results = await workspace.findFiles(
+		new RelativePattern(path, "**/package.json"),
+	);
+
+	return results.length > 0;
+};

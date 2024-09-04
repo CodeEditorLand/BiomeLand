@@ -1,5 +1,11 @@
-import { commands, window, workspace } from "vscode";
 import {
+	type ConfigurationChangeEvent,
+	commands,
+	window,
+	workspace,
+} from "vscode";
+import {
+	clearCommand,
 	downloadCommand,
 	restartCommand,
 	startCommand,
@@ -9,6 +15,7 @@ import { restart, start, stop } from "./lifecycle";
 import { info } from "./logger";
 import { updateActiveProject } from "./project";
 import { state } from "./state";
+import { debounce } from "./utils";
 
 /**
  * Creates a new Biome extension
@@ -44,6 +51,7 @@ const registerUserFacingCommands = () => {
 		commands.registerCommand("biome.stop", stopCommand),
 		commands.registerCommand("biome.restart", restartCommand),
 		commands.registerCommand("biome.download", downloadCommand),
+		commands.registerCommand("biome.clear", clearCommand),
 	);
 
 	info("User-facing commands registered");
@@ -57,15 +65,19 @@ const registerUserFacingCommands = () => {
  * restarted to reflect the new configuration.
  */
 const listenForConfigurationChanges = () => {
-	state.context.subscriptions.push(
-		workspace.onDidChangeConfiguration(async (event) => {
+	const debouncedConfigurationChangeHandler = debounce(
+		(event: ConfigurationChangeEvent) => {
 			if (event.affectsConfiguration("biome")) {
 				info("Configuration change detected.");
 				if (!["restarting", "stopping"].includes(state.state)) {
 					restart();
 				}
 			}
-		}),
+		},
+	);
+
+	state.context.subscriptions.push(
+		workspace.onDidChangeConfiguration(debouncedConfigurationChangeHandler),
 	);
 
 	info("Started listening for configuration changes");
