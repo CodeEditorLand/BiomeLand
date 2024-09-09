@@ -12,7 +12,7 @@ language server, the extension provides the following features:
 - 🚜 Code refactoring
 - 💡 Inline suggestions and quick fixes
 
-## 🚀 Installation
+## Installation
 
 The Biome extension for VS Code is available on the **Visual Studio Marketplace**
 and the **Open VSX Registry**:
