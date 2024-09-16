@@ -1,7 +1,8 @@
 import { downloadBiome } from "./downloader";
 import { restart, start, stop } from "./lifecycle";
-import { clearTemporaryBinaries } from "./session";
+import { info } from "./logger";
 import { state } from "./state";
+import { clearTemporaryBinaries } from "./utils";
 
 /**
  * Starts the Biome extension
@@ -43,7 +44,10 @@ export const downloadCommand = async () => {
 	await downloadBiome();
 };
 
-export const clearCommand = async () => {
+export const resetCommand = async () => {
+	await stop();
 	await clearTemporaryBinaries();
-	state.context.globalState.update("downloadedVersion", undefined);
+	await state.context.globalState.update("downloadedVersion", undefined);
+	info("Biome extension was reset");
+	await start();
 };
