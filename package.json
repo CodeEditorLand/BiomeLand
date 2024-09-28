@@ -1,225 +1,215 @@
 {
-	"name": "biome",
-	"displayName": "Biome",
-	"publisher": "biomejs",
-	"description": "Toolchain of the web",
-	"version": "3.0.0",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/biomejs/biome-vscode.git"
-	},
-	"main": "./out/index.js",
-	"sponsor": {
-		"url": "https://github.com/sponsors/biomejs"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.9.2",
-		"@rollup/plugin-commonjs": "26.0.1",
-		"@rollup/plugin-json": "6.1.0",
-		"@rollup/plugin-node-resolve": "15.2.4",
-		"@types/vscode": "1.80.0",
-		"@vscode/vsce": "3.1.0",
-		"lefthook": "1.7.15",
-		"ovsx": "0.9.4",
-		"rollup": "4.22.4",
-		"rollup-plugin-esbuild": "6.1.1",
-		"ts-node": "10.9.2",
-		"typescript": "5.6.2"
-	},
-	"activationEvents": ["onStartupFinished"],
-	"bugs": {
-		"url": "https://github.com/biomejs/biome-vscode/issues"
-	},
-	"categories": ["Formatters", "Linters"],
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"contributes": {
 		"commands": [
 			{
-				"title": "Biome: Start",
-				"command": "biome.start"
+				"command": "biome.start",
+				"title": "Biome: Start"
 			},
 			{
-				"title": "Biome: Stop",
-				"command": "biome.stop"
+				"command": "biome.stop",
+				"title": "Biome: Stop"
 			},
 			{
-				"title": "Biome: Restart",
-				"command": "biome.restart"
+				"command": "biome.restart",
+				"title": "Biome: Restart"
 			},
 			{
-				"title": "Biome: Download CLI",
-				"command": "biome.download"
+				"command": "biome.download",
+				"title": "Biome: Download CLI"
 			},
 			{
-				"title": "Biome: Troubleshoot - Reset",
-				"command": "biome.reset"
+				"command": "biome.reset",
+				"title": "Biome: Troubleshoot - Reset"
 			}
 		],
 		"configuration": {
-			"title": "Biome",
 			"properties": {
 				"biome.enabled": {
-					"type": "boolean",
-					"description": "Whether to enable the Biome extension",
 					"default": true,
-					"scope": "resource"
+					"description": "Whether to enable the Biome extension",
+					"scope": "resource",
+					"type": "boolean"
 				},
-				"biome.requireConfigFile": {
-					"type": "boolean",
-					"markdownDescription": "Require a Biome configuration file to be present at the root of a Biome project to start an LSP session for that project.",
+				"biome.experimental.rename": {
 					"default": false,
-					"scope": "resource"
-				},
-				"biome.projects": {
-					"anyOf": [
-						{
-							"type": "array",
-							"description": "List of projects in which an independent Biome Language Server should be started in a multi-root workspace.",
-							"items": {
-								"type": "object",
-								"properties": {
-									"folder": {
-										"type": "string",
-										"description": "Name of the workspace folder in which the project is located."
-									},
-									"path": {
-										"type": "string",
-										"description": "Path (relative to the workspace folder) to the root of the project in which an independent Biome Language Server should be started. The root of the workspace folder is used if left unspecified."
-									},
-									"configFile": {
-										"type": "string",
-										"description": "Path (relative to the workspace folder) to the Biome configuration file. Biome will use the default biome.json(c) or fallback to defaults if left unspecified."
-									}
-								},
-								"required": ["folder"]
-							}
-						},
-						{
-							"type": "array",
-							"description": "List of projects in which an independent Biome Language Server should be started in a single-root workspace.",
-							"items": {
-								"type": "object",
-								"properties": {
-									"path": {
-										"type": "string",
-										"description": "Path to the root of the project in which an independent Biome Language Server should be started."
-									},
-									"configFile": {
-										"type": "string",
-										"description": "Path to the Biome configuration file. Biome will use the default biome.json(c) or fallback to defaults if left unspecified."
-									}
-								},
-								"required": ["path"]
-							}
-						}
-					],
-					"scope": "resource"
+					"markdownDescription": "Use Biome to handle symbols renames in the workspace. (Experimental)",
+					"type": "boolean"
 				},
 				"biome.lsp.bin": {
 					"oneOf": [
 						{
-							"type": "string",
-							"description": "Path to the Biome Language Server binary",
 							"default": "",
-							"examples": ["/path/to/biome"]
+							"description": "Path to the Biome Language Server binary",
+							"examples": [
+								"/path/to/biome"
+							],
+							"type": "string"
 						},
 						{
-							"type": "object",
-							"uniqueItems": true,
 							"description": "Platform-specific paths to the Biome Language Server binary",
 							"examples": [
 								{
-									"linux-x64": "/path/to/biome",
-									"linux-arm64-musl": "/path/to/biome",
 									"darwin-arm64": "/path/to/biome",
+									"linux-arm64-musl": "/path/to/biome",
+									"linux-x64": "/path/to/biome",
 									"win32-x64": "/path/to/biome.exe"
 								}
-							]
+							],
+							"type": "object",
+							"uniqueItems": true
 						}
 					],
 					"scope": "resource"
 				},
 				"biome.lsp.trace.server": {
-					"type": "string",
-					"enum": ["off", "messages", "compact", "verbose"],
+					"default": "off",
 					"description": "Tracing level of the communications between the extension and the Biome Language Server.",
-					"default": "off"
-				},
-				"biome.experimental.rename": {
-					"type": "boolean",
-					"default": false,
-					"markdownDescription": "Use Biome to handle symbols renames in the workspace. (Experimental)"
+					"enum": [
+						"off",
+						"messages",
+						"compact",
+						"verbose"
+					],
+					"type": "string"
 				},
 				"biome.lspBin": {
-					"type": "string",
 					"default": "",
-					"ignoreSync": true,
+					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.lsp.bin` setting instead.",
 					"description": "The biome lsp server executable. If the path is relative, the workspace folder will be used as base path",
-					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.lsp.bin` setting instead."
+					"ignoreSync": true,
+					"type": "string"
+				},
+				"biome.projects": {
+					"anyOf": [
+						{
+							"description": "List of projects in which an independent Biome Language Server should be started in a multi-root workspace.",
+							"items": {
+								"properties": {
+									"configFile": {
+										"description": "Path (relative to the workspace folder) to the Biome configuration file. Biome will use the default biome.json(c) or fallback to defaults if left unspecified.",
+										"type": "string"
+									},
+									"folder": {
+										"description": "Name of the workspace folder in which the project is located.",
+										"type": "string"
+									},
+									"path": {
+										"description": "Path (relative to the workspace folder) to the root of the project in which an independent Biome Language Server should be started. The root of the workspace folder is used if left unspecified.",
+										"type": "string"
+									}
+								},
+								"required": [
+									"folder"
+								],
+								"type": "object"
+							},
+							"type": "array"
+						},
+						{
+							"description": "List of projects in which an independent Biome Language Server should be started in a single-root workspace.",
+							"items": {
+								"properties": {
+									"configFile": {
+										"description": "Path to the Biome configuration file. Biome will use the default biome.json(c) or fallback to defaults if left unspecified.",
+										"type": "string"
+									},
+									"path": {
+										"description": "Path to the root of the project in which an independent Biome Language Server should be started.",
+										"type": "string"
+									}
+								},
+								"required": [
+									"path"
+								],
+								"type": "object"
+							},
+							"type": "array"
+						}
+					],
+					"scope": "resource"
 				},
 				"biome.rename": {
-					"type": "boolean",
 					"default": false,
+					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.experimental.rename` setting instead.",
 					"markdownDescription": "Enable/Disable Biome handling renames in the workspace. (Experimental)",
-					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.experimental.rename` setting instead."
+					"type": "boolean"
+				},
+				"biome.requireConfigFile": {
+					"default": false,
+					"markdownDescription": "Require a Biome configuration file to be present at the root of a Biome project to start an LSP session for that project.",
+					"scope": "resource",
+					"type": "boolean"
 				},
 				"biome.searchInPath": {
-					"type": "boolean",
 					"default": true,
+					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. The extension will now always search for the biome executable in the PATH environment variable.",
 					"markdownDescription": "Whether to search for the biome executable in the folders declared in the PATH environment variable",
-					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. The extension will now always search for the biome executable in the PATH environment variable."
+					"type": "boolean"
 				},
 				"biome_lsp.trace.server": {
-					"type": "string",
-					"scope": "window",
-					"enum": ["off", "messages", "verbose"],
-					"enumDescriptions": ["No traces", "Error only", "Full log"],
 					"default": "off",
+					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.lsp.trace.server` setting instead.",
 					"description": "Traces the communication between VS Code and the language server.",
-					"deprecationMessage": "This setting has been deprecated and will be removed in a future version of the extension. Please use the `biome.lsp.trace.server` setting instead."
+					"enum": [
+						"off",
+						"messages",
+						"verbose"
+					],
+					"enumDescriptions": [
+						"No traces",
+						"Error only",
+						"Full log"
+					],
+					"scope": "window",
+					"type": "string"
 				}
-			}
+			},
+			"title": "Biome"
 		},
-		"languages": [
-			{
-				"id": "biome_syntax_tree",
-				"extensions": [".rast"]
-			}
-		],
 		"grammars": [
 			{
 				"language": "biome_syntax_tree",
-				"scopeName": "source.biome_syntax_tree",
-				"path": "./resources/grammars/biome-syntax-tree.tmGrammar.json"
+				"path": "./resources/grammars/biome-syntax-tree.tmGrammar.json",
+				"scopeName": "source.biome_syntax_tree"
+			}
+		],
+		"languages": [
+			{
+				"extensions": [
+					".rast"
+				],
+				"id": "biome_syntax_tree"
 			}
 		]
 	},
-	"engines": {
-		"vscode": "^1.80.0"
+	"dependencies": {
+		"@biomejs/version-utils": "0.4.0",
+		"ky": "1.7.2",
+		"nanoid": "5.0.7"
 	},
-	"homepage": "https://github.com/biomejs/biome-vscode#readme",
-	"readme": "https://github.com/biomejs/biome-vscode#readme",
+	"description": "Toolchain of the web",
+	"devDependencies": {
+		"lefthook": "1.7.15",
+		"ovsx": "0.9.4",
+		"rollup-plugin-esbuild": "6.1.1"
+	},
+	"displayName": "Biome",
 	"icon": "resources/icons/biome.png",
-	"keywords": ["formatter", "linter"],
-	"license": "MIT OR Apache-2.0",
+	"main": "./out/index.js",
+	"name": "biome",
+	"readme": "https://github.com/biomejs/biome-vscode#readme",
 	"scripts": {
 		"build": "rollup --config rollup.config.ts --configPlugin esbuild",
-		"dev": "rollup --watch --config rollup.config.ts --configPlugin esbuild",
-		"package": "pnpm run build && vsce package --out biome.vsix",
-		"typecheck": "tsc --noEmit",
-		"pretest": "pnpm run build",
-		"test": "vscode-test"
+		"dev": "rollup --watch --config rollup.config.ts --configPlugin esbuild"
+	},
+	"sponsor": {
+		"url": "https://github.com/sponsors/biomejs"
 	},
 	"vsce": {
 		"dependencies": false,
 		"skipLicense": true
-	},
-	"dependencies": {
-		"@biomejs/version-utils": "0.4.0",
-		"@vscode/test-electron": "2.4.1",
-		"ky": "1.7.2",
-		"nanoid": "5.0.7",
-		"vscode-languageclient": "8.1.0",
-		"vscode-uri": "3.0.8"
-	},
-	"packageManager": "pnpm@9.11.0"
+	}
 }
