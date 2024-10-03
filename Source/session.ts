@@ -213,7 +213,7 @@ export const createProjectSessions = async () => {
 const createLanguageClient = (bin: Uri, project?: Project) => {
 	let args = ["lsp-proxy"];
 	if (project?.configFile) {
-		args = [...args, "--config-path", project.configFile.fsPath];
+		args = [...args, "--config", project.configFile.fsPath];
 	}
 
 	const serverOptions: ServerOptions = {
@@ -350,10 +350,7 @@ const createDocumentSelector = (project?: Project): DocumentFilter[] => {
 		return supportedLanguages.map((language) => ({
 			language,
 			scheme: "file",
-			pattern: Uri.joinPath(project.path, "**", "*").fsPath.replace(
-				"\\",
-				"/",
-			),
+			pattern: `${project.path.fsPath}**/*`,
 		}));
 	}
 
