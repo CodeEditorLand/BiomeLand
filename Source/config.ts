@@ -1,9 +1,11 @@
 import {
+	workspace,
 	type ConfigurationScope,
 	type WorkspaceFolder,
-	workspace,
 } from "vscode";
+
 import type { ProjectDefinition } from "./project";
+
 type LspBinSetting = string | Record<string, string>;
 
 /**

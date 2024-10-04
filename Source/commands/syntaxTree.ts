@@ -1,21 +1,22 @@
 import {
+	EventEmitter,
+	languages,
+	Uri,
+	ViewColumn,
+	window,
+	workspace,
 	type CancellationToken,
 	type Disposable,
 	type DocumentLink,
 	type DocumentLinkProvider,
-	EventEmitter,
 	type ProviderResult,
 	type TextDocument,
 	type TextDocumentChangeEvent,
 	type TextDocumentContentProvider,
 	type TextEditor,
-	Uri,
-	ViewColumn,
-	languages,
-	window,
-	workspace,
 } from "vscode";
-import { type SyntaxTreeParams, syntaxTreeRequest } from "../lsp_requests";
+
+import { syntaxTreeRequest, type SyntaxTreeParams } from "../lsp_requests";
 import type { Command, Session } from "../session";
 import { isBiomeEditor } from "../utils";
 import { SyntaxTreeDocument } from "./syntaxTreeDocument";

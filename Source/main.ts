@@ -1,26 +1,27 @@
-import { type ChildProcess, spawn } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
 import { createRequire } from "node:module";
-import { type Socket, connect } from "node:net";
+import { connect, type Socket } from "node:net";
 import { delimiter, dirname, isAbsolute } from "node:path";
 import {
-	type ExtensionContext,
-	FileSystemError,
-	type OutputChannel,
-	RelativePattern,
-	type TextEditor,
-	Uri,
 	commands,
+	FileSystemError,
 	languages,
+	RelativePattern,
+	Uri,
 	window,
 	workspace,
+	type ExtensionContext,
+	type OutputChannel,
+	type TextEditor,
 } from "vscode";
 import {
-	type DocumentFilter,
 	LanguageClient,
+	type DocumentFilter,
 	type LanguageClientOptions,
 	type ServerOptions,
 	type StreamInfo,
 } from "vscode-languageclient/node";
+
 import { Commands } from "./commands";
 import { syntaxTree } from "./commands/syntaxTree";
 import { selectAndDownload, updateToLatest } from "./downloader";

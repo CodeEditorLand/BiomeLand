@@ -1,4 +1,5 @@
 import { LogLevel, window } from "vscode";
+
 import { displayName } from "../package.json";
 
 /**

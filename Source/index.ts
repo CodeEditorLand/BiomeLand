@@ -1,4 +1,5 @@
 import type { ExtensionContext } from "vscode";
+
 import { createExtension, destroyExtension } from "./extension";
 import { clear, info } from "./logger";
 import { state } from "./state";
