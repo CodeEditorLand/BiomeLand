@@ -5,26 +5,30 @@
 [![Discord](https://img.shields.io/discord/1132231889290285117?logo=discord&logoColor=white&label=Discord&labelColor=374151)](https://discord.gg/BypW39g6Yc)
 
 The **Biome extension for Visual Studio Code** brings first-class support for
-Biome in VS Code and VS Code-based editors. By integrating with Biome's
-language server, the extension provides the following features:
+Biome in VS Code and VS Code-based editors. By integrating with Biome's language
+server, the extension provides the following features:
 
-- 💾 Format on save
-- 🚜 Code refactoring
-- 💡 Inline suggestions and quick fixes
+-   💾 Format on save
+-   🚜 Code refactoring
+-   💡 Inline suggestions and quick fixes
 
 ## Installation
 
-The Biome extension for VS Code is available on the **Visual Studio Marketplace**
-and the **Open VSX Registry**:
+The Biome extension for VS Code is available on the **Visual Studio
+Marketplace** and the **Open VSX Registry**:
 
-- 📦 [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=biomejs.biome) (recommended for [*VS Code*](https://code.visualstudio.com/) users)
-- 📦 [Open VSX Registry](https://open-vsx.org/extension/biomejs/biome) (recommended for [*VSCodium*](https://vscodium.com/) users)
+-   📦
+    [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
+    (recommended for [_VS Code_](https://code.visualstudio.com/) users)
+-   📦 [Open VSX Registry](https://open-vsx.org/extension/biomejs/biome)
+    (recommended for [_VSCodium_](https://vscodium.com/) users)
 
 ## Documentation
 
-The documentation for the extension is available on the [official website](https://biomejs.dev/).
+The documentation for the extension is available on the
+[official website](https://biomejs.dev/).
 
-- [📖 Documentation](https://biomejs.dev/reference/vscode/)
+-   [📖 Documentation](https://biomejs.dev/reference/vscode/)
 
 ## Contributing
 
@@ -34,4 +38,5 @@ Please read the [contribution guidelines](CONTRIBUTING.md) for more information.
 
 ## License
 
-This open-source project is dual-licensed under the [MIT License](LICENSE-MIT) and the [Apache License, Version 2.0](LICENSE-APACHE)
+This open-source project is dual-licensed under the [MIT License](LICENSE-MIT)
+and the [Apache License, Version 2.0](LICENSE-APACHE)
