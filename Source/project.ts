@@ -1,21 +1,21 @@
 import {
+	type TextEditor,
 	Uri,
+	type WorkspaceFolder,
 	window,
 	workspace,
-	type TextEditor,
-	type WorkspaceFolder,
 } from "vscode";
 import { Utils } from "vscode-uri";
-
 import { findBiomeLocally } from "./binary-finder";
 import {
 	getProjectDefinitions,
 	isEnabled,
 	workspaceFolderRequiresConfigFile,
 } from "./config";
+import { operatingMode, supportedLanguageIdentifiers } from "./constants";
 import { error, warn } from "./logger";
 import { state } from "./state";
-import { directoryExists, fileExists, mode, supportedLanguages } from "./utils";
+import { directoryExists, fileExists } from "./utils";
 
 export type Project = {
 	folder?: WorkspaceFolder;
@@ -31,7 +31,7 @@ export type ProjectDefinition = {
 };
 
 export const createProjects = async () => {
-	if (mode === "single-file") {
+	if (operatingMode === "single-file") {
 		const project = await createSingleFileProject();
 		return project ? [project] : [];
 	}
@@ -261,7 +261,7 @@ export const updateActiveProject = (editor: TextEditor) => {
 
 	state.hidden =
 		editor?.document === undefined ||
-		!supportedLanguages.includes(editor.document.languageId);
+		!supportedLanguageIdentifiers.includes(editor.document.languageId);
 
 	state.activeProject = project;
 };

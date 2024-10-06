@@ -3,20 +3,18 @@ import { getAllVersions } from "@biomejs/version-utils";
 import ky from "ky";
 import {
 	ProgressLocation,
+	type QuickPickItem,
 	Uri,
 	window,
 	workspace,
-	type QuickPickItem,
 } from "vscode";
-
+import {
+	platformSpecificAssetName,
+	platformSpecificBinaryName,
+} from "./constants";
 import { error, info } from "./logger";
 import { state } from "./state";
-import {
-	binaryExtension,
-	binaryName,
-	fileExists,
-	platformPackageName,
-} from "./utils";
+import { fileExists } from "./utils";
 
 export const downloadBiome = async (): Promise<Uri | undefined> => {
 	const version = await promptVersionToDownload();
@@ -48,7 +46,7 @@ const downloadBiomeVersion = async (
 		.json();
 
 	const asset = releases.assets.find((asset) => {
-		return asset.name === platformPackageName;
+		return asset.name === platformSpecificAssetName;
 	});
 
 	if (!asset) {
@@ -70,7 +68,7 @@ const downloadBiomeVersion = async (
 	const binPath = Uri.joinPath(
 		state.context.globalStorageUri,
 		"global-bin",
-		`biome${binaryExtension}`,
+		platformSpecificBinaryName,
 	);
 
 	try {
@@ -94,7 +92,7 @@ export const getDownloadedVersion = async (): Promise<
 	const binPath = Uri.joinPath(
 		state.context.globalStorageUri,
 		"global-bin",
-		binaryName("biome"),
+		platformSpecificBinaryName,
 	);
 
 	if (!(await fileExists(binPath))) {

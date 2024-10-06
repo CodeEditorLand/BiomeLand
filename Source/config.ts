@@ -1,11 +1,9 @@
 import {
-	workspace,
 	type ConfigurationScope,
 	type WorkspaceFolder,
+	workspace,
 } from "vscode";
-
 import type { ProjectDefinition } from "./project";
-
 type LspBinSetting = string | Record<string, string>;
 
 /**
@@ -38,6 +36,20 @@ export const isEnabled = (folder?: WorkspaceFolder) => {
 	}
 
 	return config("enabled", { default: true, scope: folder.uri }) === true;
+};
+
+/**
+ * Determines whether the extension is enabled globally
+ *
+ * This function determines whether the extension is enabled globally. This is
+ * useful to conditional enable or disable functionality based on the extension's
+ * configuration at the global/user level.
+ */
+export const isEnabledGlobally = (): boolean => {
+	return (
+		workspace.getConfiguration("biome").inspect<boolean>("enabled")
+			.globalValue === true
+	);
 };
 
 /**

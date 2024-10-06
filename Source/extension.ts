@@ -1,10 +1,9 @@
 import {
+	type ConfigurationChangeEvent,
 	commands,
 	window,
 	workspace,
-	type ConfigurationChangeEvent,
 } from "vscode";
-
 import {
 	downloadCommand,
 	resetCommand,
