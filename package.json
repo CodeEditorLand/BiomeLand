@@ -193,7 +193,7 @@
 	"description": "Toolchain of the web",
 	"devDependencies": {
 		"lefthook": "1.7.18",
-		"ovsx": "0.9.5",
+		"ovsx": "0.10.0",
 		"rollup-plugin-esbuild": "6.1.1"
 	},
 	"displayName": "Biome",
