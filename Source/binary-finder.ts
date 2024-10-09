@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
-import { delimiter } from "node:path";
+import { delimiter, dirname, join } from "node:path";
 import { Uri, window } from "vscode";
+
 import { config, getLspBin } from "./config";
 import {
 	platformIdentifier,

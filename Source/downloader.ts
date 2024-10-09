@@ -3,11 +3,12 @@ import { getAllVersions } from "@biomejs/version-utils";
 import ky from "ky";
 import {
 	ProgressLocation,
-	type QuickPickItem,
 	Uri,
 	window,
 	workspace,
+	type QuickPickItem,
 } from "vscode";
+
 import {
 	platformSpecificAssetName,
 	platformSpecificBinaryName,

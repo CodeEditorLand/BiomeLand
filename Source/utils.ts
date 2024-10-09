@@ -1,5 +1,6 @@
-import { constants, accessSync } from "node:fs";
+import { accessSync, constants } from "node:fs";
 import { FileType, RelativePattern, Uri, workspace } from "vscode";
+
 import { operatingMode } from "./constants";
 import { debug } from "./logger";
 import type { Project } from "./project";

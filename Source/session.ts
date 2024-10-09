@@ -1,24 +1,25 @@
 import { spawnSync } from "node:child_process";
 import { chmodSync, copyFileSync } from "node:fs";
-import { type LogOutputChannel, Uri, window, workspace } from "vscode";
+import { Uri, window, workspace, type LogOutputChannel } from "vscode";
 import {
 	CloseAction,
+	ErrorAction,
+	LanguageClient,
+	TransportKind,
 	type CloseHandlerResult,
 	type DocumentFilter,
-	ErrorAction,
 	type ErrorHandlerResult,
 	type InitializeParams,
-	LanguageClient,
 	type LanguageClientOptions,
 	type ServerOptions,
-	TransportKind,
 } from "vscode-languageclient/node";
+
 import { displayName } from "../package.json";
 import { findBiomeGlobally, findBiomeLocally } from "./binary-finder";
 import { isEnabledGlobally } from "./config";
 import { operatingMode, supportedLanguageIdentifiers } from "./constants";
 import { debug, error, info, error as logError, warn } from "./logger";
-import { type Project, createProjects } from "./project";
+import { createProjects, type Project } from "./project";
 import { state } from "./state";
 import {
 	fileExists,

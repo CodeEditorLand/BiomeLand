@@ -1,11 +1,12 @@
 import {
-	type TextEditor,
 	Uri,
-	type WorkspaceFolder,
 	window,
 	workspace,
+	type TextEditor,
+	type WorkspaceFolder,
 } from "vscode";
 import { Utils } from "vscode-uri";
+
 import { findBiomeLocally } from "./binary-finder";
 import {
 	getProjectDefinitions,
