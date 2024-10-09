@@ -1,2 +1,2 @@
 packages:
-  - "test/fixtures/multi-root-workspace/*"
+    - "test/fixtures/multi-root-workspace/*"
