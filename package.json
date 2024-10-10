@@ -1,12 +1,7 @@
 {
-	"name": "biome",
-	"displayName": "Biome",
-	"description": "Toolchain of the web",
-	"main": "./out/index.js",
-	"scripts": {
-		"build": "rollup --config rollup.config.ts --configPlugin esbuild",
-		"dev": "rollup --watch --config rollup.config.ts --configPlugin esbuild"
-	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"contributes": {
 		"commands": [
 			{
@@ -190,21 +185,26 @@
 			}
 		]
 	},
-	"activationEvents": [
-		"onStartupFinished"
-	],
 	"dependencies": {
 		"@biomejs/version-utils": "0.4.0",
 		"ky": "1.7.2",
 		"nanoid": "5.0.7"
 	},
+	"description": "Toolchain of the web",
 	"devDependencies": {
 		"lefthook": "1.7.18",
 		"ovsx": "0.10.0",
 		"rollup-plugin-esbuild": "6.1.1"
 	},
+	"displayName": "Biome",
 	"icon": "resources/icons/biome.png",
+	"main": "./out/index.js",
+	"name": "biome",
 	"readme": "https://github.com/biomejs/biome-vscode#readme",
+	"scripts": {
+		"build": "rollup --config rollup.config.ts --configPlugin esbuild",
+		"dev": "rollup --watch --config rollup.config.ts --configPlugin esbuild"
+	},
 	"sponsor": {
 		"url": "https://github.com/sponsors/biomejs"
 	},
