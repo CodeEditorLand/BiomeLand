@@ -188,11 +188,11 @@
 	"dependencies": {
 		"@biomejs/version-utils": "0.4.0",
 		"ky": "1.7.2",
-		"nanoid": "5.0.7"
+		"nanoid": "5.0.8"
 	},
 	"description": "Toolchain of the web",
 	"devDependencies": {
-		"lefthook": "1.8.1",
+		"lefthook": "1.8.2",
 		"ovsx": "0.10.0",
 		"rollup-plugin-esbuild": "6.1.1"
 	},
