@@ -1,5 +1,0 @@
-pre-commit:
-  commands:
-    check:
-      glob: "*.{js,ts,json}"
-      run: pnpm biome check --write {staged_files} && git add {staged_files}
